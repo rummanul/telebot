@@ -56,10 +56,8 @@ async def check_sheet():
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
-        (df["Service Line"].astype(str).str.strip() == os.getenv("Service_Line"))
+        (df["Service Line"].astype(str).str.strip() == os.getenv("SERVICE_LINE"))
     ]
-
-    print(f"Found {len(nra_rows)} NRA rows.", flush=True)
 
     bot = Bot(token=TELEGRAM_TOKEN)
     notified = load_notified()
@@ -79,7 +77,7 @@ async def check_sheet():
             )
 
             message = (
-                f"⚠ NRA Found ({os.getenv("Service_Line")})\n"
+                f"⚠ NRA Found ({os.getenv("SERVICE_LINE")})\n"
                 f"Order Id: {row.get('Order Id', 'Unknown')}\n"
                 f"Row: {row_number}\n"
                 f"Open Sheet: {sheet_link}"
