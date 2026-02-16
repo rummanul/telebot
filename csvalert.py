@@ -77,7 +77,7 @@ async def check_sheet():
             )
 
             message = (
-                f"⚠ NRA Found (Shopify)\n"
+                f"⚠ NRA Found ({os.getenv("Service_Line")})\n"
                 f"Order Id: {row.get('Order Id', 'Unknown')}\n"
                 f"Row: {row_number}\n"
                 f"Open Sheet: {sheet_link}"
