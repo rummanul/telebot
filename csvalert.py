@@ -3,20 +3,23 @@ import pandas as pd
 from telegram import Bot
 import json
 import asyncio
+from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SHEET_URL = os.getenv("CSV_URL")
+SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
+SHEET_GID = os.getenv("SHEET_GID")
+
+SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&gid={SHEET_GID}"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_IDS = os.getenv("CHAT_IDS").split(",")
-
+print(f"Monitoring sheet: {SHEET_URL}")
 
 STATE_FILE = "notified.json"
 
 # Extract from your sheet URL
-SPREADSHEET_ID = "15jel-6cfYzWPJhyPZPFjXqaUSO9g9lPj"
-SHEET_GID = "502093875"
+
 
 
 def load_notified():
@@ -47,13 +50,13 @@ def col_to_letter(col_index):
 
 
 async def check_sheet():
-    print("Sheet URL:", SHEET_URL)
+    print(f"Checking sheet at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")  
 
     df = pd.read_csv(SHEET_URL)
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
-        (df["Service Line"].astype(str).str.strip() == "Wix")
+        (df["Service Line"].astype(str).str.strip() == "Shopify")
     ]
 
     bot = Bot(token=TELEGRAM_TOKEN)
@@ -74,7 +77,7 @@ async def check_sheet():
             )
 
             message = (
-                f"⚠ NRA Found (Wix)\n"
+                f"⚠ NRA Found (Shopify)\n"
                 f"Order Id: {row.get('Order Id', 'Unknown')}\n"
                 f"Row: {row_number}\n"
                 f"Open Sheet: {sheet_link}"
