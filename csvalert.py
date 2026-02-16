@@ -54,12 +54,12 @@ async def check_sheet():
 
     df = pd.read_csv(SHEET_URL)
 
-    print(df.head(3), flush=True)  # Debug: show first 3 rows to verify correct loading
-
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
         (df["Service Line"].astype(str).str.strip() == os.getenv("Service_Line"))
     ]
+
+    print(f"Found {len(nra_rows)} NRA rows.", flush=True)
 
     bot = Bot(token=TELEGRAM_TOKEN)
     notified = load_notified()
