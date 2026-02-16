@@ -91,6 +91,11 @@ async def check_sheet():
     save_notified(notified)
     print("Done checking.")
 
+async def runner():
+    while True:
+        await check_sheet()
+        await asyncio.sleep(60)
+
 
 if __name__ == "__main__":
-    asyncio.run(check_sheet())
+    asyncio.run(runner())
