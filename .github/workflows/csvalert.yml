@@ -1,0 +1,33 @@
+name: CSV Alert Monitor
+
+on:
+  schedule:
+    - cron: "* * * * *" # every minute
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  run-csvalert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas python-telegram-bot python-dotenv
+
+      - name: Run CSV Alert
+        env:
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          SHEET_GID: ${{ secrets.SHEET_GID }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_IDS: ${{ secrets.CHAT_IDS }}
+        run: |
+          python csvalert.py
