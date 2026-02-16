@@ -4,9 +4,9 @@ from telegram import Bot
 import json
 import asyncio
 from datetime import datetime
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 SHEET_GID = os.getenv("SHEET_GID")
