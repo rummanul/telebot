@@ -14,7 +14,7 @@ SHEET_GID = os.getenv("SHEET_GID")
 SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&gid={SHEET_GID}"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_IDS = os.getenv("CHAT_IDS").split(",")
-print(f"Monitoring sheet: {SHEET_URL}")
+print(f"Monitoring sheet: {SHEET_URL}", flush=True)
 
 STATE_FILE = "notified.json"
 
@@ -50,7 +50,7 @@ def col_to_letter(col_index):
 
 
 async def check_sheet():
-    print(f"Checking sheet at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")  
+    print(f"Checking sheet at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", flush=True)  
 
     df = pd.read_csv(SHEET_URL)
 
@@ -87,12 +87,12 @@ async def check_sheet():
                 try:
                     await bot.send_message(chat_id=chat_id.strip(), text=message)
                 except Exception as e:
-                    print(f"Failed to send to {chat_id}: {e}")
+                    print(f"Failed to send to {chat_id}: {e}", flush=True)
 
             notified.add(unique_id)
 
     save_notified(notified)
-    print("Done checking.")
+    print("Done checking.", flush=True)
 
 async def runner():
     while True:
