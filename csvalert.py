@@ -56,7 +56,7 @@ async def check_sheet():
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
-        (df["Service Line"].astype(str).str.strip() == "Shopify")
+        (df["Service Line"].astype(str).str.strip() == os.getenv("Service_Line"))
     ]
 
     bot = Bot(token=TELEGRAM_TOKEN)
