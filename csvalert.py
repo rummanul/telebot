@@ -10,6 +10,7 @@ load_dotenv()
 
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 SHEET_GID = os.getenv("SHEET_GID")
+SERVICE_LINE = os.getenv("SERVICE_LINE")
 
 SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&gid={SHEET_GID}"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -58,10 +59,10 @@ async def check_sheet():
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
-        (df["Service Line"].astype(str).str.strip() == os.getenv("SERVICE_LINE"))
+        (df["Service Line"].astype(str).str.strip() == SERVICE_LINE)
     ]
 
-    print(f"Found {len(nra_rows)} NRA rows for {os.getenv('SERVICE_LINE')}", flush=True)
+    print(f"Found {len(nra_rows)} NRA rows for {SERVICE_LINE}", flush=True)
 
     bot = Bot(token=TELEGRAM_TOKEN)
     notified = load_notified()
@@ -81,7 +82,7 @@ async def check_sheet():
             )
 
             message = (
-                f"⚠ NRA Found ({os.getenv("SERVICE_LINE")})\n"
+                f"⚠ NRA Found ({SERVICE_LINE})\n"
                 f"Order Id: {row.get('Order Id', 'Unknown')}\n"
                 f"Row: {row_number}\n"
                 f"Open Sheet: {sheet_link}"
@@ -99,9 +100,9 @@ async def check_sheet():
     print("Done checking.", flush=True)
 
 async def runner():
-    while True:
-        await check_sheet()
-        await asyncio.sleep(60)
+    # while True:
+        # await check_sheet()
+    await asyncio.sleep(60)
 
 
 if __name__ == "__main__":
