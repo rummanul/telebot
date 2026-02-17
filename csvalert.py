@@ -4,9 +4,9 @@ from telegram import Bot
 import json
 import asyncio
 from datetime import datetime
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 SHEET_GID = os.getenv("SHEET_GID")
@@ -15,6 +15,7 @@ SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?for
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_IDS = os.getenv("CHAT_IDS").split(",")
 print(f"Monitoring sheet: {SHEET_URL}", flush=True)
+print(f"Service Line: {os.getenv('SERVICE_LINE')}", flush=True)
 
 STATE_FILE = "notified.json"
 
