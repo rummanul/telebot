@@ -15,7 +15,6 @@ SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?for
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_IDS = os.getenv("CHAT_IDS").split(",")
 print(f"Monitoring sheet: {SHEET_URL}", flush=True)
-print(f"Service Line: {os.getenv('SERVICE_LINE')}", flush=True)
 
 STATE_FILE = "notified.json"
 
