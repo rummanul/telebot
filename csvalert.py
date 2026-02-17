@@ -54,6 +54,8 @@ async def check_sheet():
 
     df = pd.read_csv(SHEET_URL)
 
+    print(f"Total rows in sheet: {len(df)}", flush=True)
+
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
         (df["Service Line"].astype(str).str.strip() == os.getenv("SERVICE_LINE"))
@@ -66,7 +68,7 @@ async def check_sheet():
     status_col_letter = col_to_letter(status_col_index)
 
     for index, row in nra_rows.iterrows():
-        unique_id = str(row.get("E_ID"))
+        unique_id = str(row.get("Order Id"))
 
         if unique_id not in notified:
             row_number = index + 2  # header + 1-based index
@@ -88,8 +90,8 @@ async def check_sheet():
                     await bot.send_message(chat_id=chat_id.strip(), text=message)
                 except Exception as e:
                     print(f"Failed to send to {chat_id}: {e}", flush=True)
-
-            notified.add(unique_id)
+            if unique_id and str(unique_id).strip().lower() != "none":
+                notified.add(unique_id)
 
     save_notified(notified)
     print("Done checking.", flush=True)
