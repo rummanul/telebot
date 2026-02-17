@@ -101,8 +101,8 @@ async def check_sheet():
 
 async def runner():
     # while True:
-        # await check_sheet()
-    await asyncio.sleep(60)
+    await check_sheet()
+        # await asyncio.sleep(60)
 
 
 if __name__ == "__main__":
