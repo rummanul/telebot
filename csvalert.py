@@ -54,7 +54,7 @@ async def check_sheet():
 
     df = pd.read_csv(SHEET_URL)
 
-    print(f"Total rows in sheet: {len(df)}", flush=True)
+    # print(f"Total rows in sheet: {len(df)}", flush=True)
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &
