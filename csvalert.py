@@ -61,6 +61,8 @@ async def check_sheet():
         (df["Service Line"].astype(str).str.strip() == os.getenv("SERVICE_LINE"))
     ]
 
+    print(f"Found {len(nra_rows)} NRA rows for {os.getenv('SERVICE_LINE')}", flush=True)
+
     bot = Bot(token=TELEGRAM_TOKEN)
     notified = load_notified()
 
