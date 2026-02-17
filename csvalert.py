@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from telegram import Bot
+from supabase import create_client, Client
 import json
 import asyncio
 from datetime import datetime
@@ -55,7 +56,7 @@ async def check_sheet():
 
     df = pd.read_csv(SHEET_URL)
 
-    # print(f"Total rows in sheet: {len(df)}", flush=True)
+    print(f"Total rows in sheet: {len(df)}", flush=True)
 
     nra_rows = df[
         (df["Status"].astype(str).str.strip() == "NRA") &

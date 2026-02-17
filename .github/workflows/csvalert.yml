@@ -1,8 +1,8 @@
-name: CSV Alert Monitor 2.0
+name: CSV Alert Monitor 2.1
 
 on:
   schedule:
-    - cron: "* * * * *" # every minute
+    - cron: */5 * * * * # every 5 minute
   workflow_dispatch: # allow manual trigger
 
 jobs:
@@ -30,4 +30,4 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_IDS: ${{ secrets.CHAT_IDS }}
         run: |
-          python csvalert.py
+          python datasupa.py
